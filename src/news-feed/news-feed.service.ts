@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateNewsFeedDto } from './dto/create-news-feed.dto';
-import { UpdateNewsFeedDto } from './dto/update-news-feed.dto';
 
 @Injectable()
 export class NewsFeedService {
-  create(createNewsFeedDto: CreateNewsFeedDto) {
-    return 'This action adds a new newsFeed';
+  constructor(private prismaServce: PrismaService) { }
+  async create(data: Prisma.PostCreateInput): Promise<CreateNewsFeedDto> {
+    return await this.prismaServce.post.create({ data });
   }
 
-  findAll() {
-    return `This action returns all newsFeed`;
+  async findAll() {
+    return await this.prismaServce.post.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} newsFeed`;
+  async findOne(id: number) {
+    return await this.prismaServce.post.findFirst({ where: { id: id } });
   }
 
-  update(id: number, updateNewsFeedDto: UpdateNewsFeedDto) {
-    return `This action updates a #${id} newsFeed`;
+  async update(id: number, data: Prisma.PostUpdateInput) {
+    return await this.prismaServce.post.update({ data, where: { id: id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} newsFeed`;
+  async remove(id: number) {
+    return await this.prismaServce.post.delete({ where: { id: id } });
   }
 }

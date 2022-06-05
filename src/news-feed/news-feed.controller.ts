@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { NewsFeedService } from './news-feed.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateNewsFeedDto } from './dto/create-news-feed.dto';
 import { UpdateNewsFeedDto } from './dto/update-news-feed.dto';
+import { NewsFeedService } from './news-feed.service';
 
 @Controller('news-feed')
 export class NewsFeedController {
-  constructor(private readonly newsFeedService: NewsFeedService) {}
+  constructor(private readonly newsFeedService: NewsFeedService) { }
 
   @Post()
-  create(@Body() createNewsFeedDto: CreateNewsFeedDto) {
-    return this.newsFeedService.create(createNewsFeedDto);
+  async create(@Body() createNewsFeedDto: CreateNewsFeedDto) {
+    return await this.newsFeedService.create(createNewsFeedDto);
   }
 
   @Get()
-  findAll() {
-    return this.newsFeedService.findAll();
+  async findAll() {
+    return await this.newsFeedService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.newsFeedService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.newsFeedService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsFeedDto: UpdateNewsFeedDto) {
-    return this.newsFeedService.update(+id, updateNewsFeedDto);
+  async update(@Param('id') id: string, @Body() updateNewsFeedDto: UpdateNewsFeedDto) {
+    return await this.newsFeedService.update(+id, updateNewsFeedDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.newsFeedService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.newsFeedService.remove(+id);
   }
 }

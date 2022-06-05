@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { NewsFeedService } from './news-feed.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { NewsFeedController } from './news-feed.controller';
+import { NewsFeedService } from './news-feed.service';
 
 @Module({
   controllers: [NewsFeedController],
-  providers: [NewsFeedService]
+  providers: [NewsFeedService, PrismaService]
 })
-export class NewsFeedModule {}
+export class NewsFeedModule { }
